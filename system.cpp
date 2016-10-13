@@ -3,6 +3,7 @@
 #include "Potentials/potential.h"
 #include "InitialConditions/initialcondition.h"
 #include "particle.h"
+#include "Potentials/newtoniangravity.h" // added to use NewtonianGravity::computForces
 
 #include <iostream>
 using std::cout;
@@ -27,6 +28,13 @@ void System::computeForces() {
      */
     resetAllForces();
     m_potential->resetPotentialEnergy();
+
+    for(int i = 0; i < m_numberOfParticles; i++){
+        for (int j = i+1; j < m_numberOfParticles; j++){
+            m_potential->computeForces(*m_particles.at(i), *m_particles.at(j));
+
+        }
+    }
 }
 
 void System::resetAllForces() {
@@ -83,6 +91,10 @@ double System::computeKineticEnergy() {
      * Particle::velocitySquared which can be used here.
      */
     m_kineticEnergy = 0;
+    for(int i = 0; i < m_numberOfParticles; i++){
+        Particle *p = m_particles.at(i);
+        m_kineticEnergy += 0.5*p->getMass()*p->getVelocity().lengthSquared();
+    }
     return m_kineticEnergy;
 }
 
@@ -134,7 +146,7 @@ void System::setFileWriting(bool writeToFile) {
 
 void System::writePositionsToFile() {
     if (m_outFileOpen == false) {
-        m_outFile.open("positions.dat", std::ios::out);
+        m_outFile.open("../positions.dat", std::ios::out);
         m_outFileOpen = true;
     }
     /*
@@ -145,6 +157,12 @@ void System::writePositionsToFile() {
      *
      * Which format you choose for the data file is up to you.
      */
+
+    for (int i = 0; i < m_numberOfParticles; i++){
+        Particle *p = m_particles.at(i);
+        m_outFile << p->getPosition()(0) << " " << p->getPosition()(1) << " ";
+    }
+    m_outFile << endl;
 }
 
 void System::closeOutFile() {
@@ -153,7 +171,6 @@ void System::closeOutFile() {
         m_outFileOpen = false;
     }
 }
-
 
 
 

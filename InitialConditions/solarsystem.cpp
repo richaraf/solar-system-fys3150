@@ -1,10 +1,10 @@
-#include "threebody.h"
+#include "solarsystem.h"
 #include "../vec3.h"
 #include "../system.h"
 #include <cmath>
 
 
-void ThreeBody::setupParticles(System &system) {
+void SolarSystem::setupParticles(System &system) {
     /*
      * This is where you should implement the initialization of a three-body
      * system.
@@ -21,11 +21,12 @@ void ThreeBody::setupParticles(System &system) {
     //Mars
     Particle* Mars = new Particle(vec3(1.136999274118817E+00, -7.886673045811080E-01 ,0), vec3(8.545468568248289E-03*365, 1.267637022893171E-02*365 ,0), 3.2*pow(10,-7));
     //Jupiter
+    //Particle* Jupiter = new Particle(vec3())
     system.addParticle(Sun);
     system.addParticle(Earth);
     system.addParticle(Mars);
 }
 
-std::string ThreeBody::getName() {
-    return "Three-body";
+std::string SolarSystem::getName() {
+    return "Solarsystem";
 }
