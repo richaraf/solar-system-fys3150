@@ -130,7 +130,7 @@ void System::removeLinearMomentum() {
      *
      *      m_particles.at(i)->getMass();
      *      m_particles.at(i)->getVelocity();
-     *
+     *.
      * Remember also that the vec3-vector class supports the += and -=
      * operators, so you can do
      *
