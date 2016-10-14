@@ -3,7 +3,7 @@
 #include "Potentials/potential.h"
 #include "InitialConditions/initialcondition.h"
 #include "particle.h"
-#include "Potentials/newtoniangravity.h" // added to use NewtonianGravity::computForces
+#include "Potentials/newtoniangravity.h" // added to use NewtonianGravity::computeForces
 
 #include <iostream>
 using std::cout;
@@ -136,13 +136,22 @@ void System::removeLinearMomentum() {
      *
      *      totalMomentum += p->getVelocity() * p->getMass();
      */
-
     vec3 totalMomentum = vec3(0,0,0);
+    for (int i = 1; i<m_numberOfParticles; i++){ // skipping the sun thus starting at 1
+        Particle *p = m_particles.at(i);
+        totalMomentum += p->getVelocity() * p->getMass();
+        //cout << p->getVelocity();
+    }
+    Particle *p = m_particles.at(0);
+    //p->getVelocity() = totalMomentum/p->getMass()*(-1.0);
+    //cout << p->getMass() << endl;
+
 }
 
 void System::setFileWriting(bool writeToFile) {
     m_writeToFile = writeToFile;
 }
+
 
 void System::writePositionsToFile() {
     if (m_outFileOpen == false) {

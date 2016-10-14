@@ -1,11 +1,10 @@
-#ifndef SOLARSYSTEM_H
-#define SOLARSYSTEM_H
+#pragma once
+#include "../InitialConditions/initialcondition.h"
+#include <string>
 
-
-class solarsystem
-{
+class SolarSystem : public InitialCondition {
 public:
-    solarsystem();
+    SolarSystem() {}
+    void setupParticles(class System& system);
+    std::string getName();
 };
-
-#endif // SOLARSYSTEM_H
