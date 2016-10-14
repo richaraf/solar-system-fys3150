@@ -137,14 +137,6 @@ void System::removeLinearMomentum() {
      *      totalMomentum += p->getVelocity() * p->getMass();
      */
     vec3 totalMomentum = vec3(0,0,0);
-    for (int i = 1; i<m_numberOfParticles; i++){ // skipping the sun thus starting at 1
-        Particle *p = m_particles.at(i);
-        totalMomentum += p->getVelocity() * p->getMass();
-        //cout << p->getVelocity();
-    }
-    Particle *p = m_particles.at(0);
-    //p->getVelocity() = totalMomentum/p->getMass()*(-1.0);
-    //cout << p->getMass() << endl;
 
 }
 
