@@ -48,5 +48,5 @@ void Examples::solarSystemProblem()
     solarSystem->setInitialCondition    (new SolarSystem());
     solarSystem->setFileWriting         (true);
     solarSystem->removeLinearMomentum   ();
-    solarSystem->integrate              (100000);
+    solarSystem->integrate              (50000);
 }
